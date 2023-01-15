@@ -2,9 +2,10 @@ import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { serverConfig } from '@orders/config/server';
+import setupSwaggerModule from './loaders/swagger.module';
 import { globalPrefix, swaggerPrefix } from './config/api';
 import { loadGlobalMiddlewares } from './loaders/middlewares.loader';
-import setupSwaggerModule from './loaders/swagger.module';
+
 
 
 async function bootstrap() {
@@ -33,7 +34,6 @@ async function bootstrap() {
   Logger.verbose(
     `> GraphQL playground is here => http://${serverConfig.host}:${serverConfig.port}/graphql`,
   );
-
 
 }
 bootstrap();
