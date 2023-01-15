@@ -9,3 +9,12 @@ logs-billing:
 
 logs-orders:
 	sudo docker-compose logs --follow orders
+
+shell-auth:
+	docker-compose exec auth sh
+
+shell-billing:
+	docker-compose exec billing sh
+
+shell-orders:
+	docker-compose exec orders sh
