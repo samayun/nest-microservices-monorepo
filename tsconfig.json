@@ -19,7 +19,10 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@app/common": ["libs/common/src"],
-      "@app/common/*": ["libs/common/src/*"]
+      "@app/common/*": ["libs/common/src/*"],
+      "@auth/*": ["apps/auth/src/*"],
+      "@billing/*": ["apps/billing/src/*"],
+      "@orders/*": ["apps/orders/src/*"]
     }
   }
 }
