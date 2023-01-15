@@ -1,3 +1,5 @@
+version: '3.6'
+
 services:
   db:
     image: mongo:4.4.1
@@ -67,6 +69,7 @@ services:
       - '3003:3003'
 
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:latest
+    container_name: message-broker
     ports:
       - '5672:5672'
