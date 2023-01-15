@@ -10,7 +10,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: microdb
     ports:
-      - 27017:27017
+      - 150123:150123
 
   auth:
     build:
