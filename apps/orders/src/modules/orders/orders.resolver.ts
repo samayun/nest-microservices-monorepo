@@ -4,7 +4,6 @@ import { CreateOrderInput } from './dto/create-order.input';
 import { UpdateOrderInput } from './dto/update-order.input';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 
-
 @Resolver(() => Order)
 export class OrdersResolver {
   constructor(private readonly ordersService: OrdersService) {}
@@ -27,7 +26,8 @@ export class OrdersResolver {
   @Mutation(() => Order)
   updateOrder(
     @Args('id', { type: () => String }) id: string,
-    @Args('updateOrderInput') updateOrderInput: UpdateOrderInput) {
+    @Args('updateOrderInput') updateOrderInput: UpdateOrderInput,
+  ) {
     return this.ordersService.update(id, updateOrderInput);
   }
 

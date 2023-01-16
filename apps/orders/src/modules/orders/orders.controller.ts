@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
-import { OrdersService } from './orders.service';
+// import { OrdersService } from './orders.service';
+import { OrdersRepository } from './order.repository';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CreateOrderInput } from './dto/create-order.input';
 
-@Controller()
+@Controller('/v1/orders')
 export class OrderController {
-  constructor(private readonly appService: OrdersService) {}
+  constructor(private readonly orderService: OrdersRepository) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello() {
+    return this.orderService.findAll();
+  }
+
+  @Post()
+  createOrder(@Body() createOrderInput: CreateOrderInput) {
+    return this.orderService.create(createOrderInput as any);
   }
 }

@@ -29,7 +29,7 @@ shell-orders:
 
 
 destroy:
-	sudo rm -rf dist docker node_modules && docker-compose  down --volumes
+	sudo rm -rf dist docker && docker-compose  down --volumes
 
 lint:
 	docker-compose  exec api npm run lint

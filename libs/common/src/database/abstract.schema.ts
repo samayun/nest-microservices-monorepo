@@ -1,4 +1,4 @@
-import { SchemaTypes } from 'mongoose';
+import { SchemaTypes, Types } from 'mongoose';
 // import { Field, ID } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 
@@ -6,5 +6,5 @@ import { Prop, Schema } from '@nestjs/mongoose';
 export class AbstractDocument {
   @Prop({ type: SchemaTypes.ObjectId })
   // @Field(() => ID, { nullable: true, description: 'ID' })
-  _id: string;
+  _id: Types.ObjectId;
 }

@@ -7,18 +7,21 @@ import { Order, OrderDocument } from './order.entity';
 
 @Injectable()
 export class OrdersService {
-  constructor(@InjectModel(Order.name) private orderModel: Model<OrderDocument>) {}
-  
+  constructor(
+    @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
+  ) {}
+
   async create(createOrderInput: CreateOrderInput) {
     const createdOrder = new this.orderModel(createOrderInput);
     return createdOrder.save();
   }
 
-    
-  getHello(): string {
-    return 'Here are orders!';
+  async getHello() {
+    return {
+      orders: await this.findAll(),
+    };
   }
-  
+
   async findAll(): Promise<Order[]> {
     return this.orderModel.find().sort({ createdAt: -1 }).skip(0).limit(10);
   }
