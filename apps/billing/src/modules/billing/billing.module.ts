@@ -1,28 +1,19 @@
 import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '@app/common';
-import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Billing, BillingSchema } from './billing.entity';
+import { BillingResolver } from './billing.resolver';
 import { BillingController } from './billing.controller';
+import { Billing, BillingSchema } from './billing.entity';
 import { BillingService } from './billing.service';
+
 
 console.log({ BillingService: process.env.MONGODB_URI });
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      validationSchema: Joi.object({
-        MONGODB_URI: Joi.string().required(),
-        PORT: Joi.number().required(),
-      }),
-      envFilePath: './apps/auth/.env',
-    }),
-    MongooseModule.forFeature([{ name: Billing.name, schema: BillingSchema }]),
-    DatabaseModule,
+    MongooseModule.forFeature([{ name: Billing.name, schema: BillingSchema }])
   ],
   controllers: [BillingController],
-  providers: [BillingService],
+  providers: [BillingResolver,BillingService],
 })
 export class BillingModule {}

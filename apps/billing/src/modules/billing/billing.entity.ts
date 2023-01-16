@@ -2,12 +2,11 @@ import { HydratedDocument, Types } from 'mongoose';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema({ versionKey: false })
+@Schema({ versionKey: false, timestamps: true })
 @ObjectType({ description: 'This is Billing Object type', isAbstract: true })
-export class Billing  {
-
-  @Field(() => ID, { nullable: true, description: 'Billing ID' })
-  id: Types.ObjectId;
+export class Billing {
+  @Field(() => String, { nullable: true, description: 'Billing ID' })
+  id: string;
 
   @Prop()
   @Field(() => String, { nullable: true })

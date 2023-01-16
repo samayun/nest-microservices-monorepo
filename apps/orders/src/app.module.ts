@@ -18,6 +18,6 @@ import OrderModule from './modules/orders/orders.module';
     DatabaseModule,
     GraphqlModule,
     OrderModule
-  ]
+  ],
 })
 export class AppModule {}

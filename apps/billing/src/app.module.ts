@@ -16,7 +16,7 @@ import { BillingModule } from './modules/billing/billing.module';
         envFilePath: './apps/billing/.env',
       }),
     DatabaseModule,
-    // GraphqlModule,
+    GraphqlModule,
     BillingModule
   ]
 })

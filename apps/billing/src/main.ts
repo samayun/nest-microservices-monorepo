@@ -9,6 +9,7 @@ import { loadGlobalMiddlewares } from './loaders/middlewares.loader';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.setGlobalPrefix(globalPrefix);
 
   loadGlobalMiddlewares(app);
@@ -23,9 +24,12 @@ async function bootstrap() {
     `🔥🚀 Billing Server is here => http://${serverConfig.host}:${serverConfig.port}`,
   );
 
-  Logger.verbose(
-    `> Documentation is here => http://${serverConfig.host}:${serverConfig.port}/${swaggerPrefix}`,
-  );
+  if (process.env.NODE_ENV === 'development') {
+    Logger.verbose(
+      `> Documentation is here => http://${serverConfig.host}:${serverConfig.port}/${swaggerPrefix}`,
+    );
+  }
+
 
   Logger.verbose(`> DB Connected : ${process.env.MONGODB_URI}`);
 
