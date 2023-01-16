@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PaymentsService } from './payments.service';
+import { PaymentService } from './payments.service';
 import { PaymentsResolver } from './payments.resolver';
 
 @Module({
-  providers: [PaymentsResolver, PaymentsService]
+  providers: [PaymentsResolver, PaymentService],
 })
 export class PaymentsModule {}
