@@ -4,20 +4,22 @@ import { DatabaseModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphqlModule } from './loaders/graphql.module';
 import { BillingModule } from './modules/billing/billing.module';
+import { PaymentsModule } from './modules/payments/payments.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-        isGlobal: true,
-        validationSchema: Joi.object({
-          MONGODB_URI: Joi.string().required(),
-          PORT: Joi.number().required(),
-        }),
-        envFilePath: './apps/billing/.env',
+      isGlobal: true,
+      validationSchema: Joi.object({
+        MONGODB_URI: Joi.string().required(),
+        PORT: Joi.number().required(),
       }),
+      envFilePath: './apps/billing/.env',
+    }),
     DatabaseModule,
     GraphqlModule,
-    BillingModule
-  ]
+    BillingModule,
+    PaymentsModule,
+  ],
 })
 export class AppModule {}

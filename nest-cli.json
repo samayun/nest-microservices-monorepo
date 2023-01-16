@@ -13,7 +13,7 @@
       "type": "application",
       "root": "apps/auth",
       "entryFile": "main",
-      "sourceRoot": "apps/auth/src",
+      "sourceRoot": "apps/auth/src/modules",
       "compilerOptions": {
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
@@ -22,7 +22,7 @@
       "type": "application",
       "root": "apps/orders",
       "entryFile": "main",
-      "sourceRoot": "apps/orders/src",
+      "sourceRoot": "apps/orders/src/modules",
       "generateOptions": {
         "spec": false
       },
@@ -34,7 +34,7 @@
       "type": "application",
       "root": "apps/billing",
       "entryFile": "main",
-      "sourceRoot": "apps/billing/src",
+      "sourceRoot": "apps/billing/src/modules",
       "compilerOptions": {
         "tsConfigPath": "apps/billing/tsconfig.app.json"
       }

@@ -3,9 +3,9 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ versionKey: false, timestamps: true })
-@ObjectType({ description: 'This is Billing Object type', isAbstract: true })
-export class Billing {
-  @Field(() => ID, { nullable: true, description: 'Billing ID' })
+@ObjectType()
+export class Payment {
+  @Field(() => ID, { nullable: true, description: 'Payment ID' })
   id: string;
 
   @Prop()
@@ -21,5 +21,5 @@ export class Billing {
   password: string;
 }
 
-export const BillingSchema = SchemaFactory.createForClass(Billing);
-export type BillingDocument = HydratedDocument<Billing>;
+export const PaymentDocument = SchemaFactory.createForClass(Payment);
+export type PaymentDocument = HydratedDocument<Payment>;
