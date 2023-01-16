@@ -21,5 +21,5 @@ export class Payment {
   password: string;
 }
 
-export const PaymentDocument = SchemaFactory.createForClass(Payment);
+export const PaymentSchema = SchemaFactory.createForClass(Payment);
 export type PaymentDocument = HydratedDocument<Payment>;
