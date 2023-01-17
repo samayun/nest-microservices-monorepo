@@ -10,8 +10,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       playground:
         process.env.NODE_ENV !== 'production'
           ? {
-              settings: { 'request.credentials': 'include' },
-            }
+            settings: { 'request.credentials': 'include', "schema.polling.interval": 200 },
+          }
           : false,
       context: ({ req, res }) => {
         return { req, res };
@@ -19,4 +19,4 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     }),
   ],
 })
-export class GraphqlModule {}
+export class GraphqlModule { }

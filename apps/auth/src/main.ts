@@ -25,22 +25,21 @@ async function bootstrap() {
   await app.listen(configService.get('PORT'));
 
   Logger.verbose(
-    `🔥🚀 Auth Server is here => http://${
-      serverConfig.host
+    `🔥🚀 Auth Server is here => http://${serverConfig.host
     }:${configService.get('PORT')}`,
   );
-
-  Logger.verbose(
-    `> Documentation is here => http://${serverConfig.host}:${configService.get(
-      'PORT',
-    )}/${swaggerPrefix}`,
-  );
+  if (process.env.NODE_ENV === 'development') {
+    Logger.verbose(
+      `> Documentation is here => http://${serverConfig.host}:${configService.get(
+        'PORT',
+      )}/${swaggerPrefix}`,
+    );
+  }
 
   Logger.verbose(`> DB Connected : ${process.env.MONGODB_URI}`);
 
   Logger.verbose(
-    `> GraphQL playground is here => http://${
-      serverConfig.host
+    `> GraphQL playground is here => http://${serverConfig.host
     }:${configService.get('PORT')}/graphql`,
   );
 }

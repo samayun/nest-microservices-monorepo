@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { DatabaseModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphqlModule } from './loaders/graphql.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
 
 console.log({ Auth: process.env.MONGODB_URI });
 
@@ -12,8 +12,10 @@ console.log({ Auth: process.env.MONGODB_URI });
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        JWT_SECRET: Joi.string().required(),
-        JWT_EXPIRATION: Joi.string().required(),
+        ACCESS_TOKEN_SECRET: Joi.string().required(),
+        ACCESS_TOKEN_EXPIRATION: Joi.string().required(),
+        REFRESH_TOKEN_SECRET: Joi.string().required(),
+        REFRESH_TOKEN_EXPIRATION: Joi.string().required(),
         MONGODB_URI: Joi.string().required(),
         PORT: Joi.number().required(),
       }),
@@ -21,7 +23,7 @@ console.log({ Auth: process.env.MONGODB_URI });
     }),
     DatabaseModule,
     GraphqlModule,
-    AuthModule,
+    UserModule,
   ],
 })
 export class AppModule {}
