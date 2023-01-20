@@ -13,12 +13,6 @@ export class UserService {
     return createdUser.save();
   }
 
-  async getHello() {
-    return {
-      users: await this.findAll(),
-    };
-  }
-
   async findAll(): Promise<User[]> {
     return this.userModel.find().sort({ createdAt: -1 }).skip(0).limit(10);
   }

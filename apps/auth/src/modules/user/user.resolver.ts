@@ -1,10 +1,11 @@
 import { User } from './user.entity';
+// import { UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { SignupInput, LoginUserInput } from './auth.input';
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { AccessTokenType } from './auth.type';
-import { UseGuards } from '@nestjs/common';
-import { CurrentUser, GraphqlJwtAuthGuard } from '@app/common';
+import { SignupInput, LoginUserInput } from './auth.input';
+// import { CurrentUser, GraphqlJwtAuthGuard } from '@app/common';
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
+
 
 @Resolver(() => User)
 export class UserResolver {
@@ -51,11 +52,11 @@ export class UserResolver {
     return this.userService.logout(res);
   }
 
-  @Query(() => User, { name: 'me' })
-  @UseGuards(GraphqlJwtAuthGuard)
-  async me(@CurrentUser() user: typeof CurrentUser) {
-    return this.userService.getProfile(user);
-  }
+  // @Query(() => User, { name: 'me' })
+  // @UseGuards(GraphqlJwtAuthGuard)
+  // async me(@CurrentUser() user: typeof CurrentUser) {
+  //   return this.userService.getProfile(user);
+  // }
 
   @Query(() => [User], { name: 'users' })
   findAll() {
