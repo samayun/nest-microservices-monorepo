@@ -1,19 +1,13 @@
 import { UserService } from './user.service';
 // import { ApiBody } from '@nestjs/swagger';
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { LoginUserInput } from './auth.input';
+import { Controller, Get } from '@nestjs/common';
 
-@Controller('v1/auth')
-export class AuthController {
-  constructor(private readonly authService: UserService) {}
+@Controller('v1/user')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
 
   @Get()
   getHello() {
-    return this.authService.getHello();
-  }
-
-  @Post('login')
-  login(@Body() loginUserInput: LoginUserInput) {
-    return this.authService.login(loginUserInput);
+    return this.userService.getHello();
   }
 }

@@ -1,11 +1,12 @@
 import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphqlModule } from './loaders/graphql.module';
 import { UserModule } from './modules/user/user.module';
+import { DatabaseModule, RabbitMqModule } from '@app/common';
+import { AuthModule } from './modules/auth/auth.module';
 
-console.log({ Auth: process.env.MONGODB_URI });
+console.log({ AuthDB: process.env.MONGODB_URI });
 
 @Module({
   imports: [
@@ -22,7 +23,9 @@ console.log({ Auth: process.env.MONGODB_URI });
       envFilePath: './apps/auth/.env',
     }),
     DatabaseModule,
+    RabbitMqModule,
     GraphqlModule,
+    AuthModule,
     UserModule,
   ],
 })

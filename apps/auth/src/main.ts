@@ -1,5 +1,7 @@
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
+import { QUEUE_SERVICE } from './constants';
+import { RabbitMqService } from '@app/common';
 import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { serverConfig } from '@orders/config/server';
@@ -12,11 +14,17 @@ async function bootstrap() {
 
   app.setGlobalPrefix(globalPrefix);
 
-  const configService = app.get(ConfigService);
+  const rmqService = app.get<RabbitMqService>(RabbitMqService);
+  app.connectMicroservice(rmqService.getOptions(QUEUE_SERVICE));
 
   loadGlobalMiddlewares(app);
 
   app.useGlobalPipes(new ValidationPipe());
+  const configService = app.get(ConfigService);
+
+  await app.startAllMicroservices();
+
+  Logger.verbose(`🔥🚀 MicroServices Started : ${QUEUE_SERVICE}`);
 
   if (process.env.NODE_ENV === 'development') {
     setupSwaggerModule(app);
