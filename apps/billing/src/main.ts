@@ -1,11 +1,10 @@
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
-import { RabbitMqService } from '@app/common';
 import { serverConfig } from './config/server';
-import { QUEUE_SERVICE } from './constants';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import setupSwaggerModule from './loaders/swagger.module';
 import { globalPrefix, swaggerPrefix } from './config/api';
+import { BILLING_SERVICE, RabbitMqService } from '@app/common';
 import { loadGlobalMiddlewares } from './loaders/middlewares.loader';
 
 async function bootstrap() {
@@ -13,7 +12,7 @@ async function bootstrap() {
 
   const rmqService = app.get<RabbitMqService>(RabbitMqService);
 
-  app.connectMicroservice(rmqService.getOptions(QUEUE_SERVICE));
+  app.connectMicroservice(rmqService.getOptions(BILLING_SERVICE));
 
   app.setGlobalPrefix(globalPrefix);
 
@@ -27,7 +26,7 @@ async function bootstrap() {
 
   await app.startAllMicroservices();
 
-  Logger.verbose(`🔥🚀 MicroServices Started : ${QUEUE_SERVICE}`);
+  Logger.verbose(`🔥🚀 MicroServices Started : ${BILLING_SERVICE}`);
 
   await app.listen(serverConfig.port);
 

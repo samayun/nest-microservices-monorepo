@@ -1,13 +1,14 @@
 import {
-  CanActivate,
-  ExecutionContext,
   Inject,
   Injectable,
+  CanActivate,
+  ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AUTH_SERVICE } from './services';
+import { AUTH_SERVICE } from '..';
 import { ClientProxy } from '@nestjs/microservices';
 import { catchError, Observable, tap } from 'rxjs';
+// import { GqlExecutionContext } from '@nestjs/graphql';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -17,6 +18,9 @@ export class JwtAuthGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const authentication = this.getAuthentication(context);
+
+    console.log({ authentication });
+
     return this.authClient
       .send('validate_user', {
         topic: 'token',
@@ -38,9 +42,15 @@ export class JwtAuthGuard implements CanActivate {
       authentication = context.switchToRpc().getData().accessToken;
     } else if (context.getType() === 'http') {
       authentication = context.switchToHttp().getRequest().cookies?.accessToken;
-    } else if (context.getType() === 'ws') {
-      authentication = context.switchToWs().getData().cookies?.accessToken;
     }
+    // else if (context.getType() === 'ws') {
+    //   authentication = context.switchToWs().getData().cookies?.accessToken;
+    // }
+    // else {
+    //   const ctx = GqlExecutionContext.create(context);
+    //   const { req } = ctx.getContext();
+    //   authentication = req.cookies.accessToken;
+    // }
     if (!authentication) {
       throw new UnauthorizedException(
         'No value was provided for Authentication',
@@ -54,8 +64,9 @@ export class JwtAuthGuard implements CanActivate {
       context.switchToRpc().getData().user = user;
     } else if (context.getType() === 'http') {
       context.switchToHttp().getRequest().user = user;
-    } else if (context.getType() === 'ws') {
-      context.switchToWs().getData().user = user;
     }
+    // else if (context.getType() === 'ws') {
+    //   context.switchToWs().getData().user = user;
+    // }
   }
 }

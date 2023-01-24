@@ -1,10 +1,10 @@
+import { lastValueFrom } from 'rxjs';
+import { BILLING_SERVICE } from '@app/common';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { BILLING_SERVICE } from '@orders/constants';
-import { lastValueFrom } from 'rxjs';
+import { OrdersRepository } from './order.repository';
 import { CreateOrderInput } from './dto/create-order.input';
 import { UpdateOrderInput } from './dto/update-order.input';
-import { OrdersRepository } from './order.repository';
 
 @Injectable()
 export class OrdersService {

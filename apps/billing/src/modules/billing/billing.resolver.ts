@@ -15,7 +15,7 @@ export class BillingResolver {
   }
 
   @Query(() => [Billing], { name: 'billings' })
-  findAll() {
+  getBillings() {
     return this.billingService.findAll();
   }
 
