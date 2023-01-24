@@ -14,12 +14,12 @@ export class OrdersResolver {
   }
 
   @Query(() => [Order], { name: 'orders' })
-  findAll() {
-    return this.ordersService.findAll();
+  getOrders() {
+    return this.ordersService.getOrders();
   }
 
   @Query(() => Order, { name: 'order' })
-  findOne(@Args('id', { type: () => String }) id: string) {
+  findOrder(@Args('id', { type: () => String }) id: string) {
     return this.ordersService.findOne(id);
   }
 

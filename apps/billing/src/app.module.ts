@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
-import { DatabaseModule, RabbitMqModule } from '@app/common';
+import { DatabaseModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphqlModule } from './loaders/graphql.module';
 import { BillingModule } from './modules/billing/billing.module';
@@ -18,7 +18,7 @@ import { PaymentsModule } from './modules/payments/payments.module';
       }),
       envFilePath: './apps/billing/.env',
     }),
-    RabbitMqModule,
+
     DatabaseModule,
     GraphqlModule,
     BillingModule,

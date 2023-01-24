@@ -3,7 +3,6 @@ import { BillingService } from './billing.service';
 import { CreateBillingInput } from './dto/create-billing.input';
 import { UpdateBillingInput } from './dto/update-billing.input';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-
 @Resolver(() => Billing)
 export class BillingResolver {
   constructor(private readonly billingService: BillingService) {}

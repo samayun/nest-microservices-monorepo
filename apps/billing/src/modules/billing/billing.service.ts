@@ -13,8 +13,14 @@ export class BillingService {
     @InjectModel(Billing.name) private billingModel: Model<BillingDocument>,
   ) {}
 
-  bill(data: any) {
-    this.logger.log('Billing...', data);
+  async bill(data: any) {
+    const createdBilling = new this.billingModel({
+      name: 'SAMAYUN CHOWDHURY',
+      email: 'samayun@gmail.com',
+      order: data.payload,
+    });
+    await createdBilling.save();
+    this.logger.log('Billing...', createdBilling);
   }
 
   async create(createBillingInput: CreateBillingInput) {

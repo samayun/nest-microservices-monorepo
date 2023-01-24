@@ -1,44 +1,55 @@
-import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { BILLING_SERVICE } from '@orders/constants';
+import { lastValueFrom } from 'rxjs';
 import { CreateOrderInput } from './dto/create-order.input';
 import { UpdateOrderInput } from './dto/update-order.input';
-import { Order, OrderDocument } from './order.entity';
+import { OrdersRepository } from './order.repository';
 
 @Injectable()
 export class OrdersService {
   constructor(
-    @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
+    private ordersRepository: OrdersRepository,
+    @Inject(BILLING_SERVICE) private billingClient: ClientProxy,
   ) {}
 
   async create(createOrderInput: CreateOrderInput) {
-    const createdOrder = new this.orderModel(createOrderInput);
-    return createdOrder.save();
+    // const session = await this.ordersRepository.startTransaction();
+    try {
+      const order = this.ordersRepository.create(
+        createOrderInput,
+        // { session }
+      );
+
+      await lastValueFrom(
+        this.billingClient.emit('order_created', {
+          payload: createOrderInput,
+        }),
+      );
+      // await session.commitTransaction();
+      return order;
+    } catch (error) {
+      // await session.abortTransaction();
+      throw error;
+    }
   }
 
-  async getHello() {
-    return {
-      orders: await this.findAll(),
-    };
-  }
-
-  async findAll(): Promise<Order[]> {
-    return this.orderModel.find().sort({ createdAt: -1 }).skip(0).limit(10);
+  async getOrders() {
+    return this.ordersRepository.find({});
   }
 
   async findOne(id: string) {
-    const order = await this.orderModel.findById(id);
-
-    if (!order) throw new Error(`${id} order not found`);
-
-    return order;
+    return this.ordersRepository.findOne({ _id: id });
   }
 
   async update(id: string, updateOrderInput: UpdateOrderInput) {
-    return this.orderModel.findByIdAndUpdate(id, updateOrderInput);
+    return this.ordersRepository.findOneAndUpdate(
+      { _id: id },
+      updateOrderInput,
+    );
   }
 
   async remove(id: string) {
-    return this.orderModel.findByIdAndRemove(id);
+    return this.ordersRepository.findOne({ _id: id });
   }
 }

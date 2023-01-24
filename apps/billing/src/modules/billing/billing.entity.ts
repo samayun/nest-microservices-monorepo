@@ -19,6 +19,11 @@ export class Billing {
   @Field(() => String, { nullable: true })
   @Prop()
   password: string;
+
+  @Prop({
+    type: Object,
+  })
+  order: Record<string, any>;
 }
 
 export const BillingSchema = SchemaFactory.createForClass(Billing);
