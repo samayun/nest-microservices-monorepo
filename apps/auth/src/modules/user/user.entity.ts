@@ -16,14 +16,14 @@ export class User {
   @Field(() => String, { description: 'User Email' })
   email: string;
 
-  @Prop({ })
+  @Prop({})
   @Field(() => String, { description: 'User phone' })
   phone: string;
 
   @Prop()
   password: string;
 
-  @Prop({default: 'ACTIVE'})
+  @Prop({ default: 'ACTIVE' })
   @Field(() => String, { description: 'User status' })
   status: string;
 }

@@ -6,15 +6,14 @@ import { SignupInput, LoginUserInput } from './auth.input';
 // import { CurrentUser, GraphqlJwtAuthGuard } from '@app/common';
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 
-
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Query(() => AccessTokenType, { name: 'login' })
   async login(
     @Args('loginUserInput') loginUserInput: LoginUserInput,
-    @Context('res') res: any
+    @Context('res') res: any,
   ) {
     const result = await this.userService.login(loginUserInput);
 
@@ -25,7 +24,10 @@ export class UserResolver {
   }
 
   @Mutation(() => AccessTokenType, { name: 'signup' })
-  async signup(@Args('signupInput') signupInput: SignupInput, @Context('res') res: any) {
+  async signup(
+    @Args('signupInput') signupInput: SignupInput,
+    @Context('res') res: any,
+  ) {
     const result = await this.userService.signup(signupInput);
 
     res.cookie('accessToken', result?.accessToken);
@@ -35,17 +37,12 @@ export class UserResolver {
   }
 
   @Mutation(() => AccessTokenType, { name: 'refreshToken' })
-  async refreshToken(
-    @Context('req') req: any,
-    @Context('res') res: any
-  ) {
+  async refreshToken(@Context('req') req: any, @Context('res') res: any) {
     const result = await this.userService.refreshToken(req);
     res.cookie('accessToken', result?.accessToken);
 
     return result;
-
   }
-
 
   @Mutation(() => String, { name: 'logout' })
   async logout(@Context('res') res: any) {

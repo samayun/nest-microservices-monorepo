@@ -4,7 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import corsConfig from '../config/cors';
 import compression from 'compression';
-import  cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import { INestApplication } from '@nestjs/common';
 
 const corsOptions = {

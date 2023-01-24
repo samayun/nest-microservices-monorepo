@@ -13,12 +13,17 @@ export class UserResolver {
   }
 
   @Query(() => [User], { name: 'users' })
-  findAll() {
+  users() {
     return this.userService.findAll();
   }
 
   @Query(() => User, { name: 'user' })
-  findOne(@Args('id', { type: () => String }) id: string) {
+  user(@Args('id', { type: () => String }) id: string) {
+    return this.userService.findOne(id);
+  }
+
+  @Query(() => User, { name: 'me' })
+  me(@Args('id', { type: () => String }) id: string) {
     return this.userService.findOne(id);
   }
 }

@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { Model } from 'mongoose';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { SignupInput, LoginUserInput } from './auth.input';
 import { User, UserDocument } from './user.entity';
@@ -8,7 +8,6 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class UserService extends AuthService {
-
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {
     super();
   }
@@ -25,7 +24,6 @@ export class UserService extends AuthService {
     };
     return this.generateToken(payload, 'user');
   }
-
 
   async login(loginUserInput: LoginUserInput) {
     const user = await this.userModel.findOne({ email: loginUserInput.email });
@@ -83,7 +81,7 @@ export class UserService extends AuthService {
   async logout(res: any) {
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
-    return 'logout success'
+    return 'logout success';
   }
 
   async getHello() {
